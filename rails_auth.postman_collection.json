@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "495f7d8c-033f-4935-bda7-1b8e1c46a2cc",
+		"name": "rails_auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5532488"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "samirlama509@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password@123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "Password@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78.ngrok-free.app/auth",
+							"protocol": "https",
+							"host": [
+								"92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var accessToken = pm.response.headers.get('Access-token');",
+									"var uid = pm.response.headers.get('Uid');",
+									"var client = pm.response.headers.get('Client')",
+									"pm.environment.set('access-token', accessToken);",
+									"pm.environment.set('uid', uid);",
+									"pm.environment.set('client', client)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "{{access-token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Uid",
+								"value": "{{uid}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Client",
+								"value": "{{client}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "samirlama509@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78.ngrok-free.app/auth/sign_in",
+							"protocol": "https",
+							"host": [
+								"92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"auth",
+								"sign_in"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "Client",
+								"value": "{{client}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78.ngrok-free.app/auth/sign_out",
+							"protocol": "https",
+							"host": [
+								"92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"auth",
+								"sign_out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgetpassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "Client",
+								"value": "{{client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "samirlama509@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78.ngrok-free.app/auth/password",
+							"protocol": "https",
+							"host": [
+								"92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"auth",
+								"password"
+							]
+						},
+						"description": "When you send this request, you first need to set the redirect url so that when the password reset email is sent, it can redirect you to the destined redirect url on the front end. reset token is send along with it for reset password verification."
+					},
+					"response": []
+				},
+				{
+					"name": "resetpassword",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "Client",
+								"value": "{{client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "Password@123!",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "Password@123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78.ngrok-free.app/auth/password?reset_password_token=bjyH1eUF8Q4Crxwusxr4",
+							"protocol": "https",
+							"host": [
+								"92fa-2400-1a00-b050-8c0d-4b9a-45c3-3dc9-6e78",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"auth",
+								"password"
+							],
+							"query": [
+								{
+									"key": "reset_password_token",
+									"value": "bjyH1eUF8Q4Crxwusxr4"
+								}
+							]
+						},
+						"description": "Before sending this request, you get an email for reste password token, append it to the params and send the request using required headers and password and password_confirmation field."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "home",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
